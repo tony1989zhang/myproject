@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.xgf.mapper.TbDumpsMapper" >
+  <resultMap id="BaseResultMap" type="net.xgf.pojo.TbDumps" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="dumpName" property="dumpname" jdbcType="VARCHAR" />
+    <result column="shortName" property="shortname" jdbcType="VARCHAR" />
+    <result column="dumpBrief" property="dumpbrief" jdbcType="VARCHAR" />
+    <result column="authLevel" property="authlevel" jdbcType="VARCHAR" />
+    <result column="certificationProvider" property="certificationprovider" jdbcType="VARCHAR" />
+    <result column="examName" property="examname" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="examCode" property="examcode" jdbcType="VARCHAR" />
+    <result column="goldPackageOriginalPrice" property="goldpackageoriginalprice" jdbcType="DECIMAL" />
+    <result column="goldPackagePresentPrice" property="goldpackagepresentprice" jdbcType="DECIMAL" />
+    <result column="silverPackageOriginalPrice" property="silverpackageoriginalprice" jdbcType="DECIMAL" />
+    <result column="silverPackagePresentPrice" property="silverpackagepresentprice" jdbcType="DECIMAL" />
+    <result column="bannerID" property="bannerid" jdbcType="INTEGER" />
+    <result column="isHot" property="ishot" jdbcType="VARCHAR" />
+    <result column="navID" property="navid" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="net.xgf.pojo.TbDumpsWithBLOBs" extends="BaseResultMap" >
+    <result column="dumpDesc" property="dumpdesc" jdbcType="LONGVARCHAR" />
+    <result column="superiority" property="superiority" jdbcType="LONGVARCHAR" />
+    <result column="faqs" property="faqs" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, dumpName, shortName, dumpBrief, authLevel, certificationProvider, examName, createTime, 
+    updateTime, examCode, goldPackageOriginalPrice, goldPackagePresentPrice, silverPackageOriginalPrice, 
+    silverPackagePresentPrice, bannerID, isHot, navID
+  </sql>
+  <sql id="Blob_Column_List" >
+    dumpDesc, superiority, faqs
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="net.xgf.pojo.TbDumpsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_dumps
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.xgf.pojo.TbDumpsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_dumps
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_dumps
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_dumps
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.xgf.pojo.TbDumpsExample" >
+    delete from tb_dumps
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.xgf.pojo.TbDumpsWithBLOBs" >
+    insert into tb_dumps (id, dumpName, shortName, 
+      dumpBrief, authLevel, certificationProvider, 
+      examName, createTime, updateTime, 
+      examCode, goldPackageOriginalPrice, goldPackagePresentPrice, 
+      silverPackageOriginalPrice, silverPackagePresentPrice, 
+      bannerID, isHot, navID, 
+      dumpDesc, superiority, faqs
+      )
+    values (#{id,jdbcType=INTEGER}, #{dumpname,jdbcType=VARCHAR}, #{shortname,jdbcType=VARCHAR}, 
+      #{dumpbrief,jdbcType=VARCHAR}, #{authlevel,jdbcType=VARCHAR}, #{certificationprovider,jdbcType=VARCHAR}, 
+      #{examname,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{examcode,jdbcType=VARCHAR}, #{goldpackageoriginalprice,jdbcType=DECIMAL}, #{goldpackagepresentprice,jdbcType=DECIMAL}, 
+      #{silverpackageoriginalprice,jdbcType=DECIMAL}, #{silverpackagepresentprice,jdbcType=DECIMAL}, 
+      #{bannerid,jdbcType=INTEGER}, #{ishot,jdbcType=VARCHAR}, #{navid,jdbcType=INTEGER}, 
+      #{dumpdesc,jdbcType=LONGVARCHAR}, #{superiority,jdbcType=LONGVARCHAR}, #{faqs,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.xgf.pojo.TbDumpsWithBLOBs" >
+    insert into tb_dumps
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dumpname != null" >
+        dumpName,
+      </if>
+      <if test="shortname != null" >
+        shortName,
+      </if>
+      <if test="dumpbrief != null" >
+        dumpBrief,
+      </if>
+      <if test="authlevel != null" >
+        authLevel,
+      </if>
+      <if test="certificationprovider != null" >
+        certificationProvider,
+      </if>
+      <if test="examname != null" >
+        examName,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+      <if test="examcode != null" >
+        examCode,
+      </if>
+      <if test="goldpackageoriginalprice != null" >
+        goldPackageOriginalPrice,
+      </if>
+      <if test="goldpackagepresentprice != null" >
+        goldPackagePresentPrice,
+      </if>
+      <if test="silverpackageoriginalprice != null" >
+        silverPackageOriginalPrice,
+      </if>
+      <if test="silverpackagepresentprice != null" >
+        silverPackagePresentPrice,
+      </if>
+      <if test="bannerid != null" >
+        bannerID,
+      </if>
+      <if test="ishot != null" >
+        isHot,
+      </if>
+      <if test="navid != null" >
+        navID,
+      </if>
+      <if test="dumpdesc != null" >
+        dumpDesc,
+      </if>
+      <if test="superiority != null" >
+        superiority,
+      </if>
+      <if test="faqs != null" >
+        faqs,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dumpname != null" >
+        #{dumpname,jdbcType=VARCHAR},
+      </if>
+      <if test="shortname != null" >
+        #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="dumpbrief != null" >
+        #{dumpbrief,jdbcType=VARCHAR},
+      </if>
+      <if test="authlevel != null" >
+        #{authlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationprovider != null" >
+        #{certificationprovider,jdbcType=VARCHAR},
+      </if>
+      <if test="examname != null" >
+        #{examname,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examcode != null" >
+        #{examcode,jdbcType=VARCHAR},
+      </if>
+      <if test="goldpackageoriginalprice != null" >
+        #{goldpackageoriginalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="goldpackagepresentprice != null" >
+        #{goldpackagepresentprice,jdbcType=DECIMAL},
+      </if>
+      <if test="silverpackageoriginalprice != null" >
+        #{silverpackageoriginalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="silverpackagepresentprice != null" >
+        #{silverpackagepresentprice,jdbcType=DECIMAL},
+      </if>
+      <if test="bannerid != null" >
+        #{bannerid,jdbcType=INTEGER},
+      </if>
+      <if test="ishot != null" >
+        #{ishot,jdbcType=VARCHAR},
+      </if>
+      <if test="navid != null" >
+        #{navid,jdbcType=INTEGER},
+      </if>
+      <if test="dumpdesc != null" >
+        #{dumpdesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="superiority != null" >
+        #{superiority,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="faqs != null" >
+        #{faqs,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.xgf.pojo.TbDumpsExample" resultType="java.lang.Integer" >
+    select count(*) from tb_dumps
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_dumps
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.dumpname != null" >
+        dumpName = #{record.dumpname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shortname != null" >
+        shortName = #{record.shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dumpbrief != null" >
+        dumpBrief = #{record.dumpbrief,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authlevel != null" >
+        authLevel = #{record.authlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificationprovider != null" >
+        certificationProvider = #{record.certificationprovider,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examname != null" >
+        examName = #{record.examname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatetime != null" >
+        updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.examcode != null" >
+        examCode = #{record.examcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goldpackageoriginalprice != null" >
+        goldPackageOriginalPrice = #{record.goldpackageoriginalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.goldpackagepresentprice != null" >
+        goldPackagePresentPrice = #{record.goldpackagepresentprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.silverpackageoriginalprice != null" >
+        silverPackageOriginalPrice = #{record.silverpackageoriginalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.silverpackagepresentprice != null" >
+        silverPackagePresentPrice = #{record.silverpackagepresentprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.bannerid != null" >
+        bannerID = #{record.bannerid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ishot != null" >
+        isHot = #{record.ishot,jdbcType=VARCHAR},
+      </if>
+      <if test="record.navid != null" >
+        navID = #{record.navid,jdbcType=INTEGER},
+      </if>
+      <if test="record.dumpdesc != null" >
+        dumpDesc = #{record.dumpdesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.superiority != null" >
+        superiority = #{record.superiority,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.faqs != null" >
+        faqs = #{record.faqs,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tb_dumps
+    set id = #{record.id,jdbcType=INTEGER},
+      dumpName = #{record.dumpname,jdbcType=VARCHAR},
+      shortName = #{record.shortname,jdbcType=VARCHAR},
+      dumpBrief = #{record.dumpbrief,jdbcType=VARCHAR},
+      authLevel = #{record.authlevel,jdbcType=VARCHAR},
+      certificationProvider = #{record.certificationprovider,jdbcType=VARCHAR},
+      examName = #{record.examname,jdbcType=VARCHAR},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      examCode = #{record.examcode,jdbcType=VARCHAR},
+      goldPackageOriginalPrice = #{record.goldpackageoriginalprice,jdbcType=DECIMAL},
+      goldPackagePresentPrice = #{record.goldpackagepresentprice,jdbcType=DECIMAL},
+      silverPackageOriginalPrice = #{record.silverpackageoriginalprice,jdbcType=DECIMAL},
+      silverPackagePresentPrice = #{record.silverpackagepresentprice,jdbcType=DECIMAL},
+      bannerID = #{record.bannerid,jdbcType=INTEGER},
+      isHot = #{record.ishot,jdbcType=VARCHAR},
+      navID = #{record.navid,jdbcType=INTEGER},
+      dumpDesc = #{record.dumpdesc,jdbcType=LONGVARCHAR},
+      superiority = #{record.superiority,jdbcType=LONGVARCHAR},
+      faqs = #{record.faqs,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_dumps
+    set id = #{record.id,jdbcType=INTEGER},
+      dumpName = #{record.dumpname,jdbcType=VARCHAR},
+      shortName = #{record.shortname,jdbcType=VARCHAR},
+      dumpBrief = #{record.dumpbrief,jdbcType=VARCHAR},
+      authLevel = #{record.authlevel,jdbcType=VARCHAR},
+      certificationProvider = #{record.certificationprovider,jdbcType=VARCHAR},
+      examName = #{record.examname,jdbcType=VARCHAR},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      examCode = #{record.examcode,jdbcType=VARCHAR},
+      goldPackageOriginalPrice = #{record.goldpackageoriginalprice,jdbcType=DECIMAL},
+      goldPackagePresentPrice = #{record.goldpackagepresentprice,jdbcType=DECIMAL},
+      silverPackageOriginalPrice = #{record.silverpackageoriginalprice,jdbcType=DECIMAL},
+      silverPackagePresentPrice = #{record.silverpackagepresentprice,jdbcType=DECIMAL},
+      bannerID = #{record.bannerid,jdbcType=INTEGER},
+      isHot = #{record.ishot,jdbcType=VARCHAR},
+      navID = #{record.navid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.xgf.pojo.TbDumpsWithBLOBs" >
+    update tb_dumps
+    <set >
+      <if test="dumpname != null" >
+        dumpName = #{dumpname,jdbcType=VARCHAR},
+      </if>
+      <if test="shortname != null" >
+        shortName = #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="dumpbrief != null" >
+        dumpBrief = #{dumpbrief,jdbcType=VARCHAR},
+      </if>
+      <if test="authlevel != null" >
+        authLevel = #{authlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationprovider != null" >
+        certificationProvider = #{certificationprovider,jdbcType=VARCHAR},
+      </if>
+      <if test="examname != null" >
+        examName = #{examname,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examcode != null" >
+        examCode = #{examcode,jdbcType=VARCHAR},
+      </if>
+      <if test="goldpackageoriginalprice != null" >
+        goldPackageOriginalPrice = #{goldpackageoriginalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="goldpackagepresentprice != null" >
+        goldPackagePresentPrice = #{goldpackagepresentprice,jdbcType=DECIMAL},
+      </if>
+      <if test="silverpackageoriginalprice != null" >
+        silverPackageOriginalPrice = #{silverpackageoriginalprice,jdbcType=DECIMAL},
+      </if>
+      <if test="silverpackagepresentprice != null" >
+        silverPackagePresentPrice = #{silverpackagepresentprice,jdbcType=DECIMAL},
+      </if>
+      <if test="bannerid != null" >
+        bannerID = #{bannerid,jdbcType=INTEGER},
+      </if>
+      <if test="ishot != null" >
+        isHot = #{ishot,jdbcType=VARCHAR},
+      </if>
+      <if test="navid != null" >
+        navID = #{navid,jdbcType=INTEGER},
+      </if>
+      <if test="dumpdesc != null" >
+        dumpDesc = #{dumpdesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="superiority != null" >
+        superiority = #{superiority,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="faqs != null" >
+        faqs = #{faqs,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.xgf.pojo.TbDumpsWithBLOBs" >
+    update tb_dumps
+    set dumpName = #{dumpname,jdbcType=VARCHAR},
+      shortName = #{shortname,jdbcType=VARCHAR},
+      dumpBrief = #{dumpbrief,jdbcType=VARCHAR},
+      authLevel = #{authlevel,jdbcType=VARCHAR},
+      certificationProvider = #{certificationprovider,jdbcType=VARCHAR},
+      examName = #{examname,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      examCode = #{examcode,jdbcType=VARCHAR},
+      goldPackageOriginalPrice = #{goldpackageoriginalprice,jdbcType=DECIMAL},
+      goldPackagePresentPrice = #{goldpackagepresentprice,jdbcType=DECIMAL},
+      silverPackageOriginalPrice = #{silverpackageoriginalprice,jdbcType=DECIMAL},
+      silverPackagePresentPrice = #{silverpackagepresentprice,jdbcType=DECIMAL},
+      bannerID = #{bannerid,jdbcType=INTEGER},
+      isHot = #{ishot,jdbcType=VARCHAR},
+      navID = #{navid,jdbcType=INTEGER},
+      dumpDesc = #{dumpdesc,jdbcType=LONGVARCHAR},
+      superiority = #{superiority,jdbcType=LONGVARCHAR},
+      faqs = #{faqs,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.xgf.pojo.TbDumps" >
+    update tb_dumps
+    set dumpName = #{dumpname,jdbcType=VARCHAR},
+      shortName = #{shortname,jdbcType=VARCHAR},
+      dumpBrief = #{dumpbrief,jdbcType=VARCHAR},
+      authLevel = #{authlevel,jdbcType=VARCHAR},
+      certificationProvider = #{certificationprovider,jdbcType=VARCHAR},
+      examName = #{examname,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      examCode = #{examcode,jdbcType=VARCHAR},
+      goldPackageOriginalPrice = #{goldpackageoriginalprice,jdbcType=DECIMAL},
+      goldPackagePresentPrice = #{goldpackagepresentprice,jdbcType=DECIMAL},
+      silverPackageOriginalPrice = #{silverpackageoriginalprice,jdbcType=DECIMAL},
+      silverPackagePresentPrice = #{silverpackagepresentprice,jdbcType=DECIMAL},
+      bannerID = #{bannerid,jdbcType=INTEGER},
+      isHot = #{ishot,jdbcType=VARCHAR},
+      navID = #{navid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
